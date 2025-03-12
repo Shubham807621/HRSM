@@ -1,13 +1,17 @@
 package com.hrsm.HRSM.auth.controller;
 
+
+import com.hrsm.HRSM.auth.config.JWTTokenHelper;
 import com.hrsm.HRSM.auth.dto.LoginRequest;
 import com.hrsm.HRSM.auth.dto.RegistrationRequest;
 import com.hrsm.HRSM.auth.dto.RegistrationResponse;
+import com.hrsm.HRSM.auth.dto.UserToken;
 import com.hrsm.HRSM.auth.entity.Users;
 import com.hrsm.HRSM.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,7 +23,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/auth/")
+@RequestMapping("/auth")
 public class UserController {
 
     @Autowired
@@ -29,7 +33,10 @@ public class UserController {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    AuthenticationProvider authenticationProvider;
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    JWTTokenHelper jwtTokenHelper;
 
     @PostMapping("/register")
     public ResponseEntity<RegistrationResponse> register(@RequestBody RegistrationRequest request){
@@ -59,11 +66,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<UserToken> login(@RequestBody LoginRequest loginRequest){
         try {
             Authentication authentication= UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.getUserName(),loginRequest.getPassword());
 
-            Authentication authenticationResponse=this.authenticationProvider.authenticate(authentication);
+            Authentication authenticationResponse=this.authenticationManager.authenticate(authentication);
 
             if (authenticationResponse.isAuthenticated()){
                 Users users= (Users) authenticationResponse.getPrincipal();
@@ -72,16 +79,16 @@ public class UserController {
                     return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
                 }
 
-                String Token="JWT Token will be generated";
-
-                return new ResponseEntity<>(Token,HttpStatus.OK);
+                String Token= jwtTokenHelper.generateToken(users.getEmail());
+                UserToken userToken = UserToken.builder().token(Token).build();
+                return new ResponseEntity<>(userToken,HttpStatus.OK);
             }
         }
         catch (BadCredentialsException e){
-            return new ResponseEntity<>("BadCredentials",HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         }
-        return new ResponseEntity<>("BadCredentials",HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
 //    @PutMapping("/login")
