@@ -22,8 +22,8 @@ public class JWTTokenHelper {
     public JWTTokenHelper() {
         try {
             KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacSHA256");
-            SecretKey key = keyGenerator.generateKey();
-            secretKey = Base64.getEncoder().encodeToString(key.getEncoded());
+            SecretKey sk = keyGenerator.generateKey();
+            secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
 
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);

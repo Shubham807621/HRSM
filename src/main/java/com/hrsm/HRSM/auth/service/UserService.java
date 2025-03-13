@@ -1,5 +1,6 @@
 package com.hrsm.HRSM.auth.service;
 
+import com.hrsm.HRSM.auth.dto.LoginRequest;
 import com.hrsm.HRSM.auth.dto.RegistrationRequest;
 import com.hrsm.HRSM.auth.dto.RegistrationResponse;
 import com.hrsm.HRSM.auth.entity.Users;
@@ -71,5 +72,19 @@ public class UserService {
         Users user = userRepo.findByEmail(userName);
         user.setEnabled(true);
         userRepo.save(user);
+    }
+
+    public RegistrationResponse updatePassword(LoginRequest loginRequest) {
+
+        Users existing = userRepo.findByEmail(loginRequest.getUserName());
+        if (null != existing) {
+
+            existing.setPassword(passwordEncoder.encode(loginRequest.getPassword()));
+
+            userRepo.save(existing);
+            return RegistrationResponse.builder().code(200).message("Password updated").build();
+        }
+        return RegistrationResponse.builder().code(400).message("Error while updating password").build();
+
     }
 }

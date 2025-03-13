@@ -91,10 +91,12 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
-//    @PutMapping("/login")
-//    public ResponseEntity<RegistrationResponse> updatePassword(@RequestBody LoginRequest loginRequest){
-//
-//        RegistrationResponse registrationResponse = userService.updatePassword(loginRequest);
-//
-//    }
+    @PutMapping("/reset-password")
+    public ResponseEntity<RegistrationResponse> updatePassword(@RequestBody LoginRequest loginRequest){
+
+        RegistrationResponse registrationResponse=userService.updatePassword(loginRequest);
+        return new ResponseEntity<>(registrationResponse,registrationResponse.getCode()==200?HttpStatus.OK :HttpStatus.BAD_REQUEST);
+}
+
+
 }
