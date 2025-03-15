@@ -16,9 +16,14 @@ public class AuthorityService {
 
     public List<Authority> getAuthorities(){
         List<Authority> authorities =new ArrayList<>();
-        Authority authority= authorityRepo.findByRoleCode("USER");
+        Authority authority= authorityRepo.findByRoleCode("Employee");
         authorities.add(authority);
         return  authorities;
 
+    }
+
+    public Authority createAuthority(Authority authority) {
+        Authority authority1= Authority.builder().roleCode(authority.getRoleCode()).roleDescription(authority.getRoleDescription()).build();
+        return authorityRepo.save(authority);
     }
 }

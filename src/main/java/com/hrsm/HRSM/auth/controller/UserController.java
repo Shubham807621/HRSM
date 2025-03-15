@@ -2,22 +2,23 @@ package com.hrsm.HRSM.auth.controller;
 
 
 import com.hrsm.HRSM.auth.config.JWTTokenHelper;
-import com.hrsm.HRSM.auth.dto.LoginRequest;
-import com.hrsm.HRSM.auth.dto.RegistrationRequest;
-import com.hrsm.HRSM.auth.dto.RegistrationResponse;
-import com.hrsm.HRSM.auth.dto.UserToken;
+import com.hrsm.HRSM.auth.dto.*;
+import com.hrsm.HRSM.auth.entity.Authority;
 import com.hrsm.HRSM.auth.entity.Users;
+import com.hrsm.HRSM.auth.service.AuthorityService;
 import com.hrsm.HRSM.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
+
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 import java.util.Map;
 
@@ -34,6 +35,9 @@ public class UserController {
 
     @Autowired
     AuthenticationManager authenticationManager;
+
+    @Autowired
+    AuthorityService authorityService;
 
     @Autowired
     JWTTokenHelper jwtTokenHelper;
@@ -91,12 +95,32 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
-    @PutMapping("/reset-password")
+    @PutMapping("/newpassword")
     public ResponseEntity<RegistrationResponse> updatePassword(@RequestBody LoginRequest loginRequest){
 
-        RegistrationResponse registrationResponse=userService.updatePassword(loginRequest);
-        return new ResponseEntity<>(registrationResponse,registrationResponse.getCode()==200?HttpStatus.OK :HttpStatus.BAD_REQUEST);
-}
+        RegistrationResponse registrationResponse = userService.updatePassword(loginRequest);
+        return new ResponseEntity<>(registrationResponse,
+                                    registrationResponse.getCode()==200?HttpStatus.OK :HttpStatus.BAD_REQUEST);
+    }
+
+
+    @PostMapping("/addrole")
+    public ResponseEntity<?> addRole(@RequestBody Authority authority){
+
+        Authority authority1 = authorityService.createAuthority(authority);
+
+        return new ResponseEntity<>(authority1, HttpStatus.CREATED);
+    }
+
+
+    @PostMapping("/profile")
+    public ResponseEntity<UserDetailsDto> getUserProfile(@RequestBody String userName){
+
+        UserDetailsDto userDetailsDto = userService.getProfile(userName);
+
+        return new ResponseEntity<>(userDetailsDto, HttpStatus.OK);
+    }
+
 
 
 }

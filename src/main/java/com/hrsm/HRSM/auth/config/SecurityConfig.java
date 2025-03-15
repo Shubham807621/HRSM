@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -25,6 +26,9 @@ public class SecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private JWTTokenHelper jwtTokenHelper;
 
 
     private static final String[] publicApis= {
@@ -37,8 +41,13 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                     .authorizeHttpRequests(request -> request
                             .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
-//                            .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/verify").permitAll()
-                            .anyRequest().authenticated());
+//                            .requestMatchers(HttpMethod.GET, "/user/profile").permitAll()
+//                            .requestMatchers("/oauth2/success").permitAll()
+                            .anyRequest().authenticated())
+                .addFilterBefore(new JWTAuthenticationFilter(jwtTokenHelper,userDetailsService), UsernamePasswordAuthenticationFilter.class);
+
+
+//                .oauth2Login((oauth2login)-> oauth2login.defaultSuccessUrl("/oauth2/success").loginPage("/oauth2/authorization/google"));
 
         return httpSecurity.build();
     }
@@ -52,6 +61,7 @@ public class SecurityConfig {
     @Bean
     public  AuthenticationManager authenticationManager(){
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 

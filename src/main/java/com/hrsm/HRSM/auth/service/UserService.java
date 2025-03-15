@@ -3,6 +3,7 @@ package com.hrsm.HRSM.auth.service;
 import com.hrsm.HRSM.auth.dto.LoginRequest;
 import com.hrsm.HRSM.auth.dto.RegistrationRequest;
 import com.hrsm.HRSM.auth.dto.RegistrationResponse;
+import com.hrsm.HRSM.auth.dto.UserDetailsDto;
 import com.hrsm.HRSM.auth.entity.Users;
 import com.hrsm.HRSM.auth.helper.VerificationCode;
 import com.hrsm.HRSM.auth.repo.UserRepo;
@@ -86,5 +87,22 @@ public class UserService {
         }
         return RegistrationResponse.builder().code(400).message("Error while updating password").build();
 
+    }
+
+    public UserDetailsDto getProfile(String username) {
+
+        Users users = userRepo.findByEmail(username);
+
+        if (users == null) {
+            throw new RuntimeException("User not found with email: " + username);
+        }
+        System.out.println(users);
+       return UserDetailsDto.builder()
+                .firstName(users.getFirstName())
+                .lastName(users.getLastName())
+                .email(users.getEmail())
+                .id(users.getId())
+                .phoneNumber(users.getPhoneNumber())
+                .authorityList(users.getAuthorities().toArray()).build();
     }
 }
