@@ -36,4 +36,14 @@ public class EmployeeController {
         return new ResponseEntity<>(employee1, HttpStatus.CREATED);
     }
 
+    @GetMapping("/employee/detail/{empId}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable String empId){
+
+        Employee employee = employeeService.getEmployeeDetailsByEmpId(empId);
+
+        return new ResponseEntity<>(employee, HttpStatus.OK);
+
+    }
+
+
 }

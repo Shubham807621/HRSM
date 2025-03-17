@@ -3,6 +3,7 @@ package com.hrsm.HRSM.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 @Table(name = "basic_info")
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class BasicInfo {
 
     @Id
@@ -24,12 +26,11 @@ public class BasicInfo {
     @JsonIgnore
     private Employee employee;
 
-
     private int phoneNumber;
+
     private String gender;
 
     @Column(name = "date_of_birth")
-
     private Date dateOfBirth;
 
     private String address;

@@ -15,12 +15,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("*")
@@ -84,7 +87,17 @@ public class UserController {
                 }
 
                 String Token= jwtTokenHelper.generateToken(users.getEmail());
-                UserToken userToken = UserToken.builder().token(Token).build();
+                // Get the first role as a String (assuming a user has only one role)
+                String role = users.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .findFirst()
+                        .orElse("Employee"); // Default role if none found
+
+                // Build the response with token and role
+                UserToken userToken = UserToken.builder()
+                        .token(Token)
+                        .role(role)  // Add the roles list
+                        .build();
                 return new ResponseEntity<>(userToken,HttpStatus.OK);
             }
         }
@@ -110,6 +123,15 @@ public class UserController {
         Authority authority1 = authorityService.createAuthority(authority);
 
         return new ResponseEntity<>(authority1, HttpStatus.CREATED);
+    }
+
+
+    @PutMapping("/updaterole")
+    public ResponseEntity<RegistrationResponse> updateRole(@RequestBody UpdateRoleDTo updateRoleDTo){
+
+        RegistrationResponse registrationResponse = authorityService.updateRole(updateRoleDTo);
+
+        return new ResponseEntity<>(registrationResponse,HttpStatus.OK);
     }
 
 

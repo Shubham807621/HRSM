@@ -3,6 +3,7 @@ package com.hrsm.HRSM.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class BankInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,5 +31,7 @@ public class BankInfo {
 
     @Column(name = "ifsc_code")
     private String ifscCode;
+
+    private String Branch;
 
 }
