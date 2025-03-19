@@ -3,6 +3,7 @@ package com.hrsm.HRSM.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "experience")
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Experience {
 
     @Id
