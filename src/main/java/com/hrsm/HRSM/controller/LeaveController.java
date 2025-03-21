@@ -33,7 +33,7 @@ public class LeaveController {
         RegistrationResponse registrationResponse = leaverService.deleteLeave(empId);
 
         return new ResponseEntity<>(registrationResponse, HttpStatus.OK);
-}
+    }
 
 
 

@@ -3,6 +3,7 @@ package com.hrsm.HRSM.service;
 import com.hrsm.HRSM.dto.EmployeeDto;
 import com.hrsm.HRSM.dto.EmployeeList;
 import com.hrsm.HRSM.entity.Employee;
+import com.hrsm.HRSM.helper.EmployeeDepartmentCount;
 import com.hrsm.HRSM.mapper.EmployeeMapper;
 import com.hrsm.HRSM.repo.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class EmployeeServiceImp implements EmployeeService {
 
     @Autowired
     private EmployeeMapper employeeMapper;
+
+
+
 
     @Override
     public Employee addEmployee(EmployeeDto employeeDto) {
@@ -44,6 +48,17 @@ public class EmployeeServiceImp implements EmployeeService {
         return employeeRepo.findByEmpId(empId);
     }
 
+    @Override
+    public Long totalEmployees() {
+        return employeeRepo.count();
+    }
+
+    @Override
+    public List<EmployeeDepartmentCount> getAllEmployeeCounts() {
+        return employeeRepo.countEmployeesByAllTeams();
+    }
+
+
     public List<Employee> getAllEmployees() {
         return employeeRepo.findAll() ;
     }
@@ -57,8 +72,6 @@ public class EmployeeServiceImp implements EmployeeService {
     public void deleteEmployee(Long id) {
 
     }
-
-
 
 
 }

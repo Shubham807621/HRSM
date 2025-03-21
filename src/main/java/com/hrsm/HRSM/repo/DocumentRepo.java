@@ -1,9 +1,9 @@
 package com.hrsm.HRSM.repo;
 
-import com.hrsm.HRSM.entity.JobPosition;
+import com.hrsm.HRSM.entity.Document;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface JobPositionRepo extends JpaRepository<JobPosition, UUID> {
+public interface DocumentRepo extends JpaRepository<Document, UUID> {
 }

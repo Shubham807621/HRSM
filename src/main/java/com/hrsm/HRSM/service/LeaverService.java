@@ -34,6 +34,7 @@ public class LeaverService {
                 .endDate(leaveRequest.getEndDate())
                 .status(leaveRequest.getStatus())
                 .reason(leaveRequest.getReason())
+                .leaveType(leaveRequest.getLeaveType())
                 .build();
 
         return leaveRepo.save(leaveRequest1);

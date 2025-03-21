@@ -37,6 +37,9 @@ public class LeaveRequest {
     @Column(nullable = false)
     private String reason;
 
+    @Column(nullable = false)
+    private String leaveType;
+
     @Enumerated(EnumType.STRING)
     private LeaveStatus status;
 

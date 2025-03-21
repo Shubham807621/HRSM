@@ -11,4 +11,5 @@ import java.util.UUID;
 @Repository
 public interface LeaveRepo extends JpaRepository<LeaveRequest, UUID> {
     LeaveRequest findByEmployee(Employee employee);
+
 }

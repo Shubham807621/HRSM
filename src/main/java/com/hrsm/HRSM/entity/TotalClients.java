@@ -2,26 +2,24 @@ package com.hrsm.HRSM.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Entity
 @Data
-@Table(name = "job_positions")
+@Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobPosition {
-
+@Table(name="total_clients")
+public class TotalClients {
     @Id
     @GeneratedValue
     private UUID id;
 
-    @Column(nullable = false, unique = true)
-    private String title;
+    private String companyName;
 
-    @Column(nullable = false)
-    private String description;
 
 }
