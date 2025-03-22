@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class BasicInfoController {
 
 
-
     @Autowired
     private BasicInfoService basicInfoService;
-
 
     @PostMapping("/{empId}")
     public ResponseEntity<BasicInfo> createBasicInfo(@PathVariable String empId, @RequestBody BasicInfo basicInfo){
