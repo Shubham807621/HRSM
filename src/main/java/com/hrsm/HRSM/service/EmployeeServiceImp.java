@@ -58,6 +58,11 @@ public class EmployeeServiceImp implements EmployeeService {
         return employeeRepo.countEmployeesByAllTeams();
     }
 
+    @Override
+    public Employee findByEmail(String userName) {
+        return employeeRepo.findByEmail(userName);
+    }
+
 
     public List<Employee> getAllEmployees() {
         return employeeRepo.findAll() ;

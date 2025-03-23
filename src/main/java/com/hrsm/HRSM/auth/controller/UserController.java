@@ -7,17 +7,19 @@ import com.hrsm.HRSM.auth.entity.Authority;
 import com.hrsm.HRSM.auth.entity.Users;
 import com.hrsm.HRSM.auth.service.AuthorityService;
 import com.hrsm.HRSM.auth.service.UserService;
+import com.hrsm.HRSM.entity.Employee;
+import com.hrsm.HRSM.service.EmployeeServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.security.Principal;
 
@@ -41,6 +43,9 @@ public class UserController {
 
     @Autowired
     AuthorityService authorityService;
+
+    @Autowired
+    private EmployeeServiceImp employeeService;
 
     @Autowired
     JWTTokenHelper jwtTokenHelper;
@@ -93,11 +98,14 @@ public class UserController {
                         .findFirst()
                         .orElse("Employee"); // Default role if none found
 
+                Employee employee = employeeService.findByEmail(loginRequest.getUserName());
                 // Build the response with token and role
                 UserToken userToken = UserToken.builder()
                         .token(Token)
-                        .role(role)  // Add the roles list
+                        .role(role)
+                        .empId(employee.getEmpId())
                         .build();
+
                 return new ResponseEntity<>(userToken,HttpStatus.OK);
             }
         }

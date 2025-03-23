@@ -13,5 +13,6 @@ public class UserToken {
 
     private String token;
     private String role;
+    private String empId;
 
 }

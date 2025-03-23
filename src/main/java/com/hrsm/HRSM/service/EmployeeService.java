@@ -22,4 +22,6 @@ public interface EmployeeService {
     Long totalEmployees();
 
     List<EmployeeDepartmentCount> getAllEmployeeCounts();
+
+    Employee findByEmail(String userName);
 }

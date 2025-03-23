@@ -14,9 +14,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/document")
-
 public class DocumentController {
 
     @Autowired
@@ -29,7 +28,7 @@ public class DocumentController {
         return new ResponseEntity<>(document1, HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/get-documents")
     public ResponseEntity<List<Document>> getAllDocument(){
         List<Document> documents = documentService.getAllDocuments();
 

@@ -18,4 +18,5 @@ public interface EmployeeRepo extends JpaRepository<Employee, UUID>{
     List<EmployeeDepartmentCount> countEmployeesByAllTeams();
 
 
+    Employee findByEmail(String userName);
 }

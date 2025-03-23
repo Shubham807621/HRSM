@@ -12,14 +12,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/trainings")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:5173")
 public class TrainingController {
 
     @Autowired
     private TrainingService trainingService;
 
 
-    @GetMapping
+    @GetMapping("/trainings-list")
     public ResponseEntity<List<Training>> getAllTraining(){
 
         List<Training> trainings = trainingService.getAllTraining();
@@ -27,7 +27,7 @@ public class TrainingController {
         return new ResponseEntity<>(trainings, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<RegistrationResponse> createTraining(@RequestBody Training training){
 
         RegistrationResponse registrationResponse = trainingService.createTraining(training);
