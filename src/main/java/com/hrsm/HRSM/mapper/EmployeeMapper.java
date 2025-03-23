@@ -38,6 +38,7 @@ public class EmployeeMapper {
         employee.setDateOfJoining(dto.getDateOfJoining());
         employee.setTotalExperience(dto.getTotalExperience());
         employee.setTeam(dto.getTeam());
+        employee.setStatus(dto.getStatus());
         employee.setReportingOffice(dto.getReportingOffice());
 
 

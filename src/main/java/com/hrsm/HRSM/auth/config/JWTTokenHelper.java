@@ -42,7 +42,7 @@ public class JWTTokenHelper {
                 .add(claims)
                 .subject(userName)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 31 * 60 * 1000L)) // for 30 min
+                .expiration(new Date(System.currentTimeMillis() + 2 * 60 * 60 * 1000L)) // for 2 hours
                 .and()
                 .signWith(getSigningKey())
                 .compact();
