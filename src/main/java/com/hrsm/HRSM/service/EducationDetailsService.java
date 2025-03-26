@@ -1,6 +1,5 @@
 package com.hrsm.HRSM.service;
 
-
 import com.hrsm.HRSM.auth.dto.RegistrationResponse;
 import com.hrsm.HRSM.entity.EducationDetails;
 import com.hrsm.HRSM.entity.Employee;
@@ -35,6 +34,38 @@ public class EducationDetailsService {
 
         educationDetailsRepo.save(educationDetails1);
 
+        return RegistrationResponse.builder().code(201).message("Details Updated For the User").build();
+
+    }
+
+    public RegistrationResponse updateDetails(String empId, EducationDetails educationDetails) {
+
+        Employee employee = employeeRepo.findByEmpId(empId);
+
+        if (employee == null){
+            return RegistrationResponse.builder().code(400).message("Employee Not  Found").build();
+
+        }
+
+        EducationDetails existingDetails = educationDetailsRepo.findByEmployee(employee);
+        if (existingDetails != null){
+
+            existingDetails.setInstitution(educationDetails.getInstitution());
+            existingDetails.setDegree(educationDetails.getDegree());
+            existingDetails.setYearOfPassing(educationDetails.getYearOfPassing());
+
+            educationDetailsRepo.save(existingDetails);
+
+        }   else {
+            EducationDetails educationDetails1 = EducationDetails.builder()
+                    .institution(educationDetails.getInstitution())
+                    .degree(educationDetails.getDegree())
+                    .employee(employee)
+                    .yearOfPassing(educationDetails.getYearOfPassing())
+                    .build();
+
+            educationDetailsRepo.save(educationDetails1);
+        }
         return RegistrationResponse.builder().code(201).message("Details Updated For the User").build();
 
     }

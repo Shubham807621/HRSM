@@ -21,7 +21,6 @@ public class EmployeeController {
     private EmployeeServiceImp employeeService;
 
 
-
     @GetMapping
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
@@ -61,7 +60,13 @@ public class EmployeeController {
         return employeeService.getAllEmployeeCounts();
     }
 
+    @GetMapping("/emp-dashboard-details/{empId}")
+    public ResponseEntity<EmployeeDto> getEmployeeData(@PathVariable String empId){
 
+        EmployeeDto employeeDto = employeeService.getEmployeeDetails(empId);
+
+        return new ResponseEntity<>(employeeDto, HttpStatus.OK);
+    }
 
 
 

@@ -20,7 +20,7 @@ public class EmployeeDto {
     private String email;
     private String designation;
     private String totalExperience;
-    private int phoneNumber;
+    private Integer phoneNumber;
     private String team;
     private String reportingOffice;
     private LocalDate dateOfJoining;

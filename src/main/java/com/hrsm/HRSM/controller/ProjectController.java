@@ -1,6 +1,7 @@
 package com.hrsm.HRSM.controller;
 
 
+import com.hrsm.HRSM.dto.CountDetails;
 import com.hrsm.HRSM.entity.Projects;
 import com.hrsm.HRSM.entity.TotalClients;
 import com.hrsm.HRSM.service.ProjectSService;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/project")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProjectController {
 
     @Autowired
@@ -30,5 +31,12 @@ public class ProjectController {
     {
         Projects projects1 = projectSService.createProject(projects);
         return new ResponseEntity<>(projects1, HttpStatus.CREATED);
+    }
+
+
+    @GetMapping("/getCounts")
+    public ResponseEntity<CountDetails> getCounts(){
+        CountDetails countDetails = projectSService.getCounts();
+        return new ResponseEntity<>(countDetails, HttpStatus.OK);
     }
 }

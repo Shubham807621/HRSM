@@ -24,4 +24,6 @@ public interface EmployeeService {
     List<EmployeeDepartmentCount> getAllEmployeeCounts();
 
     Employee findByEmail(String userName);
+
+    EmployeeDto getEmployeeDetails(String empId);
 }

@@ -56,6 +56,12 @@
         @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
         private List<LeaveRequest> leaveRequest;
 
+        @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        private List<Skill> skills ;
+
+        @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        private List<Task> tasks ;
+
         @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
         private Payroll payroll;
 

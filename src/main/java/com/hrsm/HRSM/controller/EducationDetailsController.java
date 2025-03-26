@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/education")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:5173")
 public class EducationDetailsController {
 
 
@@ -22,6 +22,15 @@ public class EducationDetailsController {
     public ResponseEntity<RegistrationResponse> createDetails(@PathVariable String empId, @RequestBody EducationDetails educationDetails){
 
         RegistrationResponse registrationResponse = educationDetailsService.createDetails(empId, educationDetails);
+
+        return new ResponseEntity<>(registrationResponse, HttpStatus.CREATED);
+
+    }
+
+    @PutMapping("/{empId}")
+    public ResponseEntity<RegistrationResponse> updateDetails(@PathVariable String empId, @RequestBody EducationDetails educationDetails ){
+
+        RegistrationResponse registrationResponse = educationDetailsService.updateDetails(empId, educationDetails);
 
         return new ResponseEntity<>(registrationResponse, HttpStatus.CREATED);
 

@@ -1,6 +1,7 @@
 package com.hrsm.HRSM.repo;
 
 import com.hrsm.HRSM.entity.Employee;
+import com.hrsm.HRSM.entity.Experience;
 import com.hrsm.HRSM.helper.EmployeeDepartmentCount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,6 @@ public interface EmployeeRepo extends JpaRepository<Employee, UUID>{
 
 
     Employee findByEmail(String userName);
+
+
 }

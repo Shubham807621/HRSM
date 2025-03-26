@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 public class EmployeeMapper {
 
 
+
     public EmployeeList toDto(Employee employee) {
         if (employee == null) {
             return null;
@@ -20,6 +21,26 @@ public class EmployeeMapper {
                 employee.getName(),
                 employee.getEmail(),
                 employee.getDesignation(),
+                (employee.getBasicInfo() != null) ? employee.getBasicInfo().getPhoneNumber() : null,
+                employee.getDateOfJoining(),
+                employee.getStatus()
+                );
+    }
+
+    public EmployeeDto toEmpDto(Employee employee) {
+        if (employee == null) {
+            return null;
+        }
+
+        return new EmployeeDto(
+                employee.getEmpId(),
+                employee.getName(),
+                employee.getEmail(),
+                employee.getDesignation(),
+                employee.getTotalExperience(),
+                (employee.getBasicInfo() != null) ? employee.getBasicInfo().getPhoneNumber() : null,
+                employee.getTeam(),
+                employee.getReportingOffice(),
                 employee.getDateOfJoining(),
                 employee.getStatus()
         );

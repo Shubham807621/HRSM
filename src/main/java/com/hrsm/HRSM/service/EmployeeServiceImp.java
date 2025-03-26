@@ -22,8 +22,6 @@ public class EmployeeServiceImp implements EmployeeService {
     private EmployeeMapper employeeMapper;
 
 
-
-
     @Override
     public Employee addEmployee(EmployeeDto employeeDto) {
 
@@ -61,6 +59,12 @@ public class EmployeeServiceImp implements EmployeeService {
     @Override
     public Employee findByEmail(String userName) {
         return employeeRepo.findByEmail(userName);
+    }
+
+    @Override
+    public EmployeeDto getEmployeeDetails(String empId) {
+       Employee employee = employeeRepo.findByEmpId(empId);
+        return employeeMapper.toEmpDto(employee);
     }
 
 

@@ -2,13 +2,15 @@ package com.hrsm.HRSM.service;
 
 
 import com.hrsm.HRSM.auth.dto.RegistrationResponse;
-import com.hrsm.HRSM.entity.BankInfo;
+import com.hrsm.HRSM.dto.LeaveCountDto;
 import com.hrsm.HRSM.entity.Employee;
 import com.hrsm.HRSM.entity.LeaveRequest;
 import com.hrsm.HRSM.repo.EmployeeRepo;
 import com.hrsm.HRSM.repo.LeaveRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LeaverService {
@@ -56,5 +58,15 @@ public class LeaverService {
                 .code(200)
                 .message("Leave Has Been deleted")
                 .build();
+    }
+
+    public LeaveCountDto getLeaveCounts(String empId) {
+        Employee employee = employeeRepo.findByEmpId(empId);
+
+        if (employee == null) {
+            throw new RuntimeException("Employee not found with empId: " + empId);
+        }
+        System.out.println("Employee ID: " + employee.getId()); // ✅ Debugging
+        return leaveRepo.countLeaveRequestsByType(employee.getId());
     }
 }

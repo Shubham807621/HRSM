@@ -19,6 +19,7 @@ public class EmployeeList {
     private String name;
     private String email;
     private String designation;
+    private Integer phoneNumber;
     private LocalDate dateOfJoining;
     private EmployeeStatus status;
 }

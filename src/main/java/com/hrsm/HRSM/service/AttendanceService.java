@@ -38,7 +38,7 @@ public class AttendanceService {
                 .build();
 
         attendanceRepo.save(attendance);
-        return RegistrationResponse.builder().code(200).message("Punch In Successfully").build();
+        return RegistrationResponse.builder().code(200).message(String.valueOf(LocalDateTime.now())).build();
     }
 
 
