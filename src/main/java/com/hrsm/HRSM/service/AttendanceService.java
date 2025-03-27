@@ -2,8 +2,10 @@ package com.hrsm.HRSM.service;
 
 
 import com.hrsm.HRSM.auth.dto.RegistrationResponse;
+import com.hrsm.HRSM.dto.AttendanceDto;
 import com.hrsm.HRSM.entity.Attendance;
 import com.hrsm.HRSM.entity.Employee;
+import com.hrsm.HRSM.mapper.AttendanceMapper;
 import com.hrsm.HRSM.repo.AttendanceRepo;
 import com.hrsm.HRSM.repo.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -23,6 +27,9 @@ public class AttendanceService {
 
     @Autowired
     private EmployeeRepo employeeRepo;
+
+    @Autowired
+    private AttendanceMapper attendanceMapper;
 
 
     public RegistrationResponse punchIn(String empId) {
@@ -69,4 +76,19 @@ public class AttendanceService {
         // 5️⃣ Save updated attendance record
         return attendanceRepo.save(attendance);
     }
+
+
+        public List<AttendanceDto> getAllAttendance() {
+
+            List<Attendance> attendances=  attendanceRepo.findAll();
+            return attendances.stream().map(attendanceMapper::toDto).collect(Collectors.toList());
+    }
+
+        public List<Attendance> getAllAttendanceById(String empId) {
+
+            Employee employee = employeeRepo.findByEmpId(empId);
+
+            return  attendanceRepo.findAllByEmployeeId(employee.getId());
+
+        }
 }

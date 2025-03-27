@@ -1,26 +1,27 @@
 package com.hrsm.HRSM.dto;
 
-import com.hrsm.HRSM.entity.EmployeeStatus;
-
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeList {
+public class AttendanceDto {
 
     private String empId;
     private String name;
     private String email;
     private String designation;
-    private Integer phoneNumber;
-    private LocalDate dateOfJoining;
-    private String team;
-    private EmployeeStatus status;
+    private LocalDateTime punchIn;
+    private LocalDateTime punchOut;
+    private Double totalHours;
+    private boolean present;
+
+
 }

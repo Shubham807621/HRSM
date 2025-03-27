@@ -33,7 +33,7 @@ public class SecurityConfig {
 
     private static final String[] PUBLIC_APIS = {
             "/auth/**",
-//            "/api/document/**"
+            "/api/employee/**"
     };
 
     @Bean

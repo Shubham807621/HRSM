@@ -3,6 +3,7 @@ package com.hrsm.HRSM.controller;
 import com.hrsm.HRSM.auth.dto.RegistrationResponse;
 import com.hrsm.HRSM.entity.BankInfo;
 import com.hrsm.HRSM.entity.BasicInfo;
+import com.hrsm.HRSM.repo.EmployeeRepo;
 import com.hrsm.HRSM.service.BasicInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,8 @@ public class BasicInfoController {
 
     @Autowired
     private BasicInfoService basicInfoService;
+
+
 
     @PostMapping("/{empId}")
     public ResponseEntity<BasicInfo> createBasicInfo(@PathVariable String empId, @RequestBody BasicInfo basicInfo){

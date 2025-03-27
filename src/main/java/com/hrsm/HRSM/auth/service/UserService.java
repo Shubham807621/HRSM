@@ -7,6 +7,9 @@ import com.hrsm.HRSM.auth.dto.UserDetailsDto;
 import com.hrsm.HRSM.auth.entity.Users;
 import com.hrsm.HRSM.auth.helper.VerificationCode;
 import com.hrsm.HRSM.auth.repo.UserRepo;
+import com.hrsm.HRSM.dto.EmployeeDto;
+import com.hrsm.HRSM.entity.Employee;
+import com.hrsm.HRSM.service.EmployeeServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,9 @@ public class UserService {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private EmployeeServiceImp employeeService;
 
     public RegistrationResponse register(RegistrationRequest request){
 
@@ -55,6 +61,14 @@ public class UserService {
         emailService.sendMail(user);
         userRepo.save(user);
 
+        String EmpName = request.getFirstName() + " " + request.getLastName();
+
+        EmployeeDto employeeDto = EmployeeDto.builder()
+                .name(EmpName)
+                .email(request.getEmail())
+                .phoneNumber(Integer.valueOf(request.getPhoneNumber()))
+                .build();
+             employeeService.addEmployee(employeeDto);
 
         return RegistrationResponse.builder()
                 .code(200)

@@ -21,5 +21,6 @@ public interface EmployeeRepo extends JpaRepository<Employee, UUID>{
 
     Employee findByEmail(String userName);
 
-
+    @Query("SELECT e.empId FROM Employee e ORDER BY e.empId DESC LIMIT 1")
+    String findLastEmpId();
 }

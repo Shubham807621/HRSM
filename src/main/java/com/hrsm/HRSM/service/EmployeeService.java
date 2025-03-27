@@ -1,6 +1,7 @@
 package com.hrsm.HRSM.service;
 
 import com.hrsm.HRSM.dto.EmployeeDto;
+import com.hrsm.HRSM.dto.EmployeeHRDashBoardDto;
 import com.hrsm.HRSM.dto.EmployeeList;
 import com.hrsm.HRSM.entity.Employee;
 import com.hrsm.HRSM.helper.EmployeeDepartmentCount;
@@ -26,4 +27,6 @@ public interface EmployeeService {
     Employee findByEmail(String userName);
 
     EmployeeDto getEmployeeDetails(String empId);
+
+    EmployeeHRDashBoardDto getEmpData(String empId);
 }

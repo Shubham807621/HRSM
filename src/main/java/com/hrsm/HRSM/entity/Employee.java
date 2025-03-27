@@ -29,7 +29,7 @@
         @Column(name = "email", nullable = false)
         private String email;
 
-        @Column(name = "designation", nullable = false)
+        @Column(name = "designation")
         private String designation;
 
         @Column(name = "experience")

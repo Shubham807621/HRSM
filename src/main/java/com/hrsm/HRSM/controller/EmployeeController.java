@@ -1,6 +1,7 @@
 package com.hrsm.HRSM.controller;
 
 import com.hrsm.HRSM.dto.EmployeeDto;
+import com.hrsm.HRSM.dto.EmployeeHRDashBoardDto;
 import com.hrsm.HRSM.dto.EmployeeList;
 import com.hrsm.HRSM.entity.Employee;
 import com.hrsm.HRSM.helper.EmployeeDepartmentCount;
@@ -68,6 +69,13 @@ public class EmployeeController {
         return new ResponseEntity<>(employeeDto, HttpStatus.OK);
     }
 
+    @GetMapping("/hr-dashboard-details/{empId}")
+    public ResponseEntity<EmployeeHRDashBoardDto> getEmpData(@PathVariable String empId){
+
+        EmployeeHRDashBoardDto employeeHRDashBoardDto = employeeService.getEmpData(empId);
+
+        return new ResponseEntity<>(employeeHRDashBoardDto, HttpStatus.OK);
+    }
 
 
 

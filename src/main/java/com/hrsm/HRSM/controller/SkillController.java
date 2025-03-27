@@ -1,7 +1,10 @@
 package com.hrsm.HRSM.controller;
 
 import com.hrsm.HRSM.entity.Skill;
+import com.hrsm.HRSM.entity.Task;
 import com.hrsm.HRSM.service.SkillService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +21,17 @@ public class SkillController {
     }
 
     @GetMapping
-    public List<Skill> getSkills() {
-        return skillService.getAllSkills();
+    public ResponseEntity<List<Skill>> getAllSkills(@PathVariable String empId) {
+        List<Skill> skills = skillService.getAllSkills(empId);
+
+        return new ResponseEntity<>(skills, HttpStatus.OK);
+    }
+
+
+    @PostMapping("/{empId}")
+    public ResponseEntity<Skill> createSkill(@PathVariable String empId, @RequestBody Skill skill){
+        Skill skil1 = skillService.createSkill(empId, skill);
+
+        return new ResponseEntity<>(skil1, HttpStatus.CREATED);
     }
 }

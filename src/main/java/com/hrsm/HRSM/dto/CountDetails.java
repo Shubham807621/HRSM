@@ -13,4 +13,5 @@ public class CountDetails {
 
     private Long totalClientCount;
     private Long totalProjectCount;
+    private Long totalTrainingCount;
 }

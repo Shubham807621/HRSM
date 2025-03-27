@@ -6,6 +6,7 @@ import com.hrsm.HRSM.entity.Projects;
 import com.hrsm.HRSM.entity.TotalClients;
 import com.hrsm.HRSM.repo.ProjectRepo;
 import com.hrsm.HRSM.repo.TotalClientSRepo;
+import com.hrsm.HRSM.repo.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,9 @@ public class ProjectSService {
 
     @Autowired
     private TotalClientSRepo totalClientSRepo;
+
+    @Autowired
+    private TrainingRepository trainingRepository;
 
     public Long GetProjects() {
         return projectRepo.count();
@@ -30,10 +34,11 @@ public class ProjectSService {
     public CountDetails getCounts() {
        Long projectCount = projectRepo.count();
        Long clientCount = totalClientSRepo.count();
-
+       Long trainingCount= trainingRepository.count();
        return CountDetails.builder()
                .totalClientCount(clientCount)
                .totalProjectCount(projectCount)
+               .totalTrainingCount(trainingCount)
                .build();
 
     }

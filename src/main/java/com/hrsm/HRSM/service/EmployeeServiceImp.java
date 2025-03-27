@@ -1,6 +1,7 @@
 package com.hrsm.HRSM.service;
 
 import com.hrsm.HRSM.dto.EmployeeDto;
+import com.hrsm.HRSM.dto.EmployeeHRDashBoardDto;
 import com.hrsm.HRSM.dto.EmployeeList;
 import com.hrsm.HRSM.entity.Employee;
 import com.hrsm.HRSM.helper.EmployeeDepartmentCount;
@@ -65,6 +66,12 @@ public class EmployeeServiceImp implements EmployeeService {
     public EmployeeDto getEmployeeDetails(String empId) {
        Employee employee = employeeRepo.findByEmpId(empId);
         return employeeMapper.toEmpDto(employee);
+    }
+
+    @Override
+    public EmployeeHRDashBoardDto getEmpData(String empId) {
+        Employee employee = employeeRepo.findByEmpId(empId);
+        return employeeMapper.toEmpDashboardDto(employee);
     }
 
 

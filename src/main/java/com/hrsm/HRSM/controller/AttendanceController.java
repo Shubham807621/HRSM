@@ -2,6 +2,7 @@ package com.hrsm.HRSM.controller;
 
 
 import com.hrsm.HRSM.auth.dto.RegistrationResponse;
+import com.hrsm.HRSM.dto.AttendanceDto;
 import com.hrsm.HRSM.entity.Attendance;
 import com.hrsm.HRSM.service.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -34,6 +36,22 @@ public class AttendanceController {
         return ResponseEntity.ok(updatedAttendance);
     }
 
+
+    @GetMapping("/attendance-list")
+    public ResponseEntity<List<AttendanceDto>> getAllAttendance(){
+
+        List<AttendanceDto> attendance = attendanceService.getAllAttendance();
+
+        return new ResponseEntity<>(attendance, HttpStatus.OK);
+    }
+
+    @GetMapping("/attendance-list/{empId}")
+    public ResponseEntity<List<Attendance>> getAllAttendance(@PathVariable String empId){
+
+        List<Attendance> attendance = attendanceService.getAllAttendanceById(empId);
+
+        return new ResponseEntity<>(attendance, HttpStatus.OK);
+    }
 
 
 
