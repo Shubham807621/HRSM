@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Entity
@@ -39,6 +40,19 @@ public class LeaveRequest {
 
     @Column(nullable = false)
     private String leaveType;
+
+    @Column(nullable = false)
+    private int numberOfDays;
+
+    // Method to calculate number of leave days
+    public void calculateNumberOfDays() {
+        if (this.startDate != null && this.endDate != null) {
+            this.numberOfDays = (int) ChronoUnit.DAYS.between(startDate, endDate) + 1;
+        } else {
+            this.numberOfDays = 0;
+        }
+    }
+
 
     @Enumerated(EnumType.STRING)
     private LeaveStatus status;

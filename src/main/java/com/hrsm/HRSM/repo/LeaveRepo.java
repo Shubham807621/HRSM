@@ -26,4 +26,7 @@ public interface LeaveRepo extends JpaRepository<LeaveRequest, UUID> {
             "FROM LeaveRequest lr WHERE lr.employee.id = :employeeId")
     LeaveCountDto countLeaveRequestsByType(@org.springframework.data.repository.query.Param("employeeId") UUID employeeId);
 
+    List<LeaveRequest> findAllByEmployeeId(UUID id);
+
+    LeaveRequest findTopByEmployeeIdOrderByStartDateDesc(UUID id);
 }

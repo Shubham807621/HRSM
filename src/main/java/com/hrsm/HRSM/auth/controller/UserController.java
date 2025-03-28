@@ -151,6 +151,14 @@ public class UserController {
         return new ResponseEntity<>(userDetailsDto, HttpStatus.OK);
     }
 
+    @GetMapping("/user-list")
+    public  ResponseEntity<List<UserRoleDetails>> getUsers(){
+        List<UserRoleDetails> userRoleDetails = userService.getUsers();
+
+        return  new ResponseEntity<>(userRoleDetails, HttpStatus.OK);
+
+    }
+
 
 
 }

@@ -1,9 +1,7 @@
 package com.hrsm.HRSM.auth.service;
 
-import com.hrsm.HRSM.auth.dto.LoginRequest;
-import com.hrsm.HRSM.auth.dto.RegistrationRequest;
-import com.hrsm.HRSM.auth.dto.RegistrationResponse;
-import com.hrsm.HRSM.auth.dto.UserDetailsDto;
+import com.hrsm.HRSM.auth.dto.*;
+import com.hrsm.HRSM.auth.entity.Authority;
 import com.hrsm.HRSM.auth.entity.Users;
 import com.hrsm.HRSM.auth.helper.VerificationCode;
 import com.hrsm.HRSM.auth.repo.UserRepo;
@@ -14,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ServerErrorException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -118,5 +119,25 @@ public class UserService {
                 .id(users.getId())
                 .phoneNumber(users.getPhoneNumber())
                 .authorityList(users.getAuthorities().toArray()).build();
+    }
+
+    public List<UserRoleDetails> getUsers() {
+
+        List<Users> users = userRepo.findAll();
+        return users.stream().map(this::toDto).collect(Collectors.toList());
+    }
+
+    private UserRoleDetails toDto(Users users) {
+        String userName = users.getFirstName()+" "+users.getLastName();
+        String roleCode = users.getAuthorities().stream()
+                .filter(auth -> auth instanceof Authority) // Ensure it's Authority type
+                .map(auth -> ((Authority) auth).getRoleCode()) // Cast to Authority and get roleCode
+                .collect(Collectors.joining(", ")); // Join multiple roles with comma if needed
+
+        return UserRoleDetails.builder()
+                .userName(users.getEmail())
+                .name(userName)
+                .roleCode(roleCode)  // Set roleCode
+                .build();
     }
 }
