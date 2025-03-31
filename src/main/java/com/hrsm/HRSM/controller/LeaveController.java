@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/leave")
-@CrossOrigin(origins = "*")
+
 public class LeaveController {
 
 

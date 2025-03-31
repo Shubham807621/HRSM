@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/basic-info")
-@CrossOrigin(origins = "*")
+
 public class BasicInfoController {
 
 
