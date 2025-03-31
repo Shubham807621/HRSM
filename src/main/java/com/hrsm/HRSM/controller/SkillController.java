@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/skills")
-@CrossOrigin(origins = "http://localhost:3000") // Allow frontend requests
+@CrossOrigin(origins = "*") // Allow frontend requests
 public class SkillController {
 
     private final SkillService skillService;

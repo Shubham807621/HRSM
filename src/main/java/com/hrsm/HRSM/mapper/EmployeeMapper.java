@@ -4,6 +4,7 @@ package com.hrsm.HRSM.mapper;
 import com.hrsm.HRSM.dto.EmployeeDto;
 import com.hrsm.HRSM.dto.EmployeeHRDashBoardDto;
 import com.hrsm.HRSM.dto.EmployeeList;
+import com.hrsm.HRSM.entity.BasicInfo;
 import com.hrsm.HRSM.entity.Employee;
 import com.hrsm.HRSM.repo.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,19 +91,32 @@ public class EmployeeMapper {
             return null;
         }
 
-        Employee employee = new Employee();
-        employee.setEmpId(generateEmpId());
-        employee.setName(dto.getName());
-        employee.setEmail(dto.getEmail());
-        employee.setClientId(dto.getClientId());
-        employee.setDesignation(dto.getDesignation());
-        employee.setDateOfJoining(dto.getDateOfJoining());
-        employee.setTotalExperience(dto.getTotalExperience());
-        employee.setTeam(dto.getTeam());
-        employee.setStatus(dto.getStatus());
-        employee.setReportingOffice(dto.getReportingOffice());
+        if(dto.getEmpId() == null) {
+            Employee employee = new Employee();
+            employee.setEmpId(generateEmpId());
+            employee.setName(dto.getName());
+            employee.setEmail(dto.getEmail());
+            employee.setClientId(dto.getClientId());
+            employee.setDesignation(dto.getDesignation());
+            employee.setDateOfJoining(dto.getDateOfJoining());
+            employee.setTotalExperience(dto.getTotalExperience());
+            employee.setTeam(dto.getTeam());
+            employee.setStatus(dto.getStatus());
+            employee.setReportingOffice(dto.getReportingOffice());
+            return employee;
 
+        }
+        Employee employee1 = employeeRepo.findByEmpId(dto.getEmpId());
+        employee1.setName(dto.getName());
+        employee1.setClientId(dto.getClientId());
+        employee1.setDesignation(dto.getDesignation());
+        employee1.setTotalExperience(dto.getTotalExperience());
+        employee1.setBasicInfo(BasicInfo.builder().phoneNumber(dto.getPhoneNumber()).build());
+        employee1.setTeam(dto.getTeam());
+        employee1.setReportingOffice(dto.getReportingOffice());
+        employee1.setDateOfJoining(dto.getDateOfJoining());
+        employee1.setStatus(dto.getStatus());
+        return employee1;
 
-        return employee;
     }
 }

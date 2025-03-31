@@ -1,5 +1,6 @@
 package com.hrsm.HRSM.service;
 
+import com.hrsm.HRSM.auth.dto.RegistrationResponse;
 import com.hrsm.HRSM.dto.EmployeeDto;
 import com.hrsm.HRSM.dto.EmployeeHRDashBoardDto;
 import com.hrsm.HRSM.dto.EmployeeList;
@@ -30,6 +31,16 @@ public class EmployeeServiceImp implements EmployeeService {
 
         return employeeRepo.save(employee);
     }
+
+    @Override
+    public RegistrationResponse updateEmployee(EmployeeDto employeeDto) {
+        Employee employee = employeeMapper.toEntity(employeeDto);
+
+      employeeRepo.save(employee);
+      return RegistrationResponse.builder().code(200).message("Employee Details has been Updated").build();
+    }
+
+
 
     @Override
     public Employee getEmployeeById(Long id) {
@@ -75,13 +86,9 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
 
+
     public List<Employee> getAllEmployees() {
         return employeeRepo.findAll() ;
-    }
-
-    @Override
-    public Employee updateEmployee(Long id, Employee employee) {
-        return null;
     }
 
     @Override

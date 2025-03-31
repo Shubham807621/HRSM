@@ -1,5 +1,6 @@
 package com.hrsm.HRSM.controller;
 
+import com.hrsm.HRSM.auth.dto.RegistrationResponse;
 import com.hrsm.HRSM.dto.EmployeeDto;
 import com.hrsm.HRSM.dto.EmployeeHRDashBoardDto;
 import com.hrsm.HRSM.dto.EmployeeList;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin("*")
 @RequestMapping("/api")
 public class EmployeeController {
 
@@ -37,6 +38,13 @@ public class EmployeeController {
         Employee employee1 = employeeService.addEmployee(employeeDto);
 
         return new ResponseEntity<>(employee1, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/employee")
+    public ResponseEntity<RegistrationResponse> updateEmployee(@RequestBody EmployeeDto employeeDto) {
+        RegistrationResponse registrationResponse = employeeService.updateEmployee(employeeDto);
+
+        return new ResponseEntity<>(registrationResponse, HttpStatus.CREATED);
     }
 
     @GetMapping("/employee/detail/{empId}")
