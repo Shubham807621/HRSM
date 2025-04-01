@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-
 @RequestMapping("/api")
 public class EmployeeController {
 
@@ -48,7 +47,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/detail/{empId}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable String empId){
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable("empId") String empId){
 
         Employee employee = employeeService.getEmployeeDetailsByEmpId(empId);
 
@@ -70,7 +69,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/emp-dashboard-details/{empId}")
-    public ResponseEntity<EmployeeDto> getEmployeeData(@PathVariable String empId){
+    public ResponseEntity<EmployeeDto> getEmployeeData(@PathVariable("empId") String empId){
 
         EmployeeDto employeeDto = employeeService.getEmployeeDetails(empId);
 
@@ -78,7 +77,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/hr-dashboard-details/{empId}")
-    public ResponseEntity<EmployeeHRDashBoardDto> getEmpData(@PathVariable String empId){
+    public ResponseEntity<EmployeeHRDashBoardDto> getEmpData(@PathVariable("empId") String empId){
 
         EmployeeHRDashBoardDto employeeHRDashBoardDto = employeeService.getEmpData(empId);
 

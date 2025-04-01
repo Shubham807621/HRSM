@@ -33,7 +33,7 @@ public class LeaveController {
     }
 
     @GetMapping("/{empId}")
-    public ResponseEntity<List<LeaveRequest>> getAllLeave(@PathVariable String empId){
+    public ResponseEntity<List<LeaveRequest>> getAllLeave(@PathVariable("empId")  String empId){
 
         List<LeaveRequest> leaveRequests = leaverService.getAllLeaves(empId);
 
@@ -41,7 +41,7 @@ public class LeaveController {
     }
 
     @PostMapping("/add/{empId}")
-    public ResponseEntity<LeaveRequest> create(@RequestBody LeaveRequest leaveRequest, @PathVariable String empId)
+    public ResponseEntity<LeaveRequest> create(@RequestBody LeaveRequest leaveRequest, @PathVariable("empId")  String empId)
     {
         LeaveRequest leaveRequest1 =leaverService.create(leaveRequest, empId);
 
@@ -49,7 +49,7 @@ public class LeaveController {
     }
 
     @PutMapping("/update/{empId}/{id}/status")
-    public ResponseEntity<LeaveRequest> updateLeaveByID(@PathVariable String empId, @PathVariable UUID id, @RequestBody LeaveStatus status){
+    public ResponseEntity<LeaveRequest> updateLeaveByID(@PathVariable("empId")  String empId, @PathVariable UUID id, @RequestBody LeaveStatus status){
 
         LeaveRequest leaveRequests = leaverService.updateLeaveByID(empId,id, status);
 
@@ -57,7 +57,7 @@ public class LeaveController {
     }
 
     @DeleteMapping("/delete/{empId}")
-    public ResponseEntity<RegistrationResponse> deleteLeave(@PathVariable String empId)
+    public ResponseEntity<RegistrationResponse> deleteLeave(@PathVariable("empId")  String empId)
     {
         RegistrationResponse registrationResponse = leaverService.deleteLeave(empId);
 
@@ -65,7 +65,7 @@ public class LeaveController {
     }
 
     @GetMapping("/leave_count/{empId}")
-    public ResponseEntity<LeaveCountDto> getLeaveCounts(@PathVariable String empId) {
+    public ResponseEntity<LeaveCountDto> getLeaveCounts(@PathVariable("empId")  String empId) {
         LeaveCountDto leaveCountDto = leaverService.getLeaveCounts(empId);
         return new ResponseEntity<>(leaveCountDto, HttpStatus.OK);
     }

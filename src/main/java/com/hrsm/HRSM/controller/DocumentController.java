@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-
 @RequestMapping("/api/document")
 public class DocumentController {
 
@@ -36,7 +35,7 @@ public class DocumentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<RegistrationResponse> deleteDocument(@PathVariable UUID id){
+    public ResponseEntity<RegistrationResponse> deleteDocument(@PathVariable("id")  UUID id){
         RegistrationResponse registrationResponse =  documentService.deleteDocument(id);
         return new ResponseEntity<>(registrationResponse, HttpStatus.OK);
     }

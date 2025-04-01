@@ -22,7 +22,7 @@ public class AttendanceController {
 
     // Punch In API
     @PostMapping("/punch-in/{empId}")
-    public ResponseEntity<RegistrationResponse> punchIn(@PathVariable String empId) {
+    public ResponseEntity<RegistrationResponse> punchIn(@PathVariable("empId")  String empId) {
 
         RegistrationResponse registrationResponse= attendanceService.punchIn(empId);
 
@@ -30,7 +30,7 @@ public class AttendanceController {
     }
 
     @PostMapping("/punch-out/{empId}")
-    public ResponseEntity<Attendance> punchOut(@PathVariable String empId) {
+    public ResponseEntity<Attendance> punchOut(@PathVariable("empId")  String empId) {
         Attendance updatedAttendance = attendanceService.punchOut(empId);
         return ResponseEntity.ok(updatedAttendance);
     }
@@ -45,7 +45,7 @@ public class AttendanceController {
     }
 
     @GetMapping("/attendance-list/{empId}")
-    public ResponseEntity<List<Attendance>> getAllAttendance(@PathVariable String empId){
+    public ResponseEntity<List<Attendance>> getAllAttendance(@PathVariable("empId")  String empId){
 
         List<Attendance> attendance = attendanceService.getAllAttendanceById(empId);
 

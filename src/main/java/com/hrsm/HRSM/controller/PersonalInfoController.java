@@ -19,7 +19,7 @@ public class PersonalInfoController {
 
 
     @PostMapping("/{empId}")
-    public ResponseEntity<RegistrationResponse> addDetails(@PathVariable String empId, @RequestBody PersonalInfo personalInfo){
+    public ResponseEntity<RegistrationResponse> addDetails(@PathVariable("empId")  String empId, @RequestBody PersonalInfo personalInfo){
 
         RegistrationResponse registrationResponse = personalInfoService.addDetails(empId, personalInfo);
 
@@ -28,7 +28,7 @@ public class PersonalInfoController {
     }
 
     @PutMapping("/{empId}")
-    public ResponseEntity<RegistrationResponse> updateDetails(@PathVariable String empId, @RequestBody PersonalInfo personalInfo){
+    public ResponseEntity<RegistrationResponse> updateDetails(@PathVariable("empId")  String empId, @RequestBody PersonalInfo personalInfo){
 
         RegistrationResponse registrationResponse = personalInfoService.updateDetails(empId, personalInfo);
         return new ResponseEntity<>(registrationResponse, HttpStatus.CREATED);

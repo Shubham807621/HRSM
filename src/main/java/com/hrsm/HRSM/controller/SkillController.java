@@ -29,7 +29,7 @@ public class SkillController {
 
 
     @PostMapping("/{empId}")
-    public ResponseEntity<Skill> createSkill(@PathVariable String empId, @RequestBody Skill skill){
+    public ResponseEntity<Skill> createSkill(@PathVariable("empId")  String empId, @RequestBody Skill skill){
         Skill skil1 = skillService.createSkill(empId, skill);
 
         return new ResponseEntity<>(skil1, HttpStatus.CREATED);

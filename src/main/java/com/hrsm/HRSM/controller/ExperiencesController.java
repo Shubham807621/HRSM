@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/experience")
-
 public class ExperiencesController {
 
     @Autowired
@@ -19,7 +18,7 @@ public class ExperiencesController {
 
 
     @PostMapping("/{empId}")
-    public ResponseEntity<Experience> addExperience(@PathVariable String empId, @RequestBody Experience experience){
+    public ResponseEntity<Experience> addExperience(@PathVariable("empId")  String empId, @RequestBody Experience experience){
 
         Experience experience1 = experiencesService.addExperience(empId,experience);
 
@@ -27,7 +26,7 @@ public class ExperiencesController {
     }
 
     @PutMapping("/{empId}")
-    public ResponseEntity<RegistrationResponse> updateExperience(@PathVariable String empId, @RequestBody Experience experience){
+    public ResponseEntity<RegistrationResponse> updateExperience(@PathVariable("empId")  String empId, @RequestBody Experience experience){
 
         RegistrationResponse registrationResponse = experiencesService.updateDetails(empId, experience);
 

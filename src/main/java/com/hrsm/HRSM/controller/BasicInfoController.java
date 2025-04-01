@@ -22,14 +22,14 @@ public class BasicInfoController {
 
 
     @PostMapping("/{empId}")
-    public ResponseEntity<BasicInfo> createBasicInfo(@PathVariable String empId, @RequestBody BasicInfo basicInfo){
+    public ResponseEntity<BasicInfo> createBasicInfo(@PathVariable("empId")  String empId, @RequestBody BasicInfo basicInfo){
         BasicInfo basicInfo1 = basicInfoService.createBasicInfo(empId, basicInfo);
 
         return new ResponseEntity<>(basicInfo1, HttpStatus.CREATED);
     }
 
     @PutMapping("/{empId}")
-    public  ResponseEntity<RegistrationResponse> updateBasicInfo(@RequestBody BasicInfo basicInfo, @PathVariable String empId){
+    public  ResponseEntity<RegistrationResponse> updateBasicInfo(@RequestBody BasicInfo basicInfo, @PathVariable("empId")  String empId){
 
         RegistrationResponse registrationResponse = basicInfoService.updateBasicInfo(basicInfo, empId);
 

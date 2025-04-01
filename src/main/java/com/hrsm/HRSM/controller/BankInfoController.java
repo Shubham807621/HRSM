@@ -22,7 +22,7 @@ public class BankInfoController {
 
 
     @PostMapping("/{empId}")
-    public ResponseEntity<BankInfo> createBankInfo(@RequestBody BankInfo bankInfo , @PathVariable String empId){
+    public ResponseEntity<BankInfo> createBankInfo(@RequestBody BankInfo bankInfo , @PathVariable("empId")  String empId){
 
         BankInfo bankInfo1 = bankInfoService.createBankInfo(bankInfo, empId);
 
@@ -30,7 +30,7 @@ public class BankInfoController {
     }
 
     @PutMapping("/{empId}")
-    public  ResponseEntity<RegistrationResponse> updateBankInfo(@RequestBody BankInfo bankInfo, @PathVariable String empId){
+    public  ResponseEntity<RegistrationResponse> updateBankInfo(@RequestBody BankInfo bankInfo, @PathVariable("empId")  String empId){
 
         RegistrationResponse registrationResponse = bankInfoService.updateBankInfo(bankInfo, empId);
 

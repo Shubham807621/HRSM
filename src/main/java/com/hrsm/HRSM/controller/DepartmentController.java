@@ -17,7 +17,7 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
     @PostMapping("/department/{empId}")
-    public ResponseEntity<Department> createDepartment(@RequestBody Department department, @PathVariable String empId){
+    public ResponseEntity<Department> createDepartment(@RequestBody Department department, @PathVariable("empId")  String empId){
         Department department1 = departmentService.createDepartment(department, empId);
 
         return new ResponseEntity<>(department1, HttpStatus.CREATED);

@@ -20,7 +20,7 @@ public class FamilyInfoController {
 
 
     @PostMapping("/{empId}")
-    public ResponseEntity<RegistrationResponse> createFamilyInfo(@RequestBody FamilyInfo familyInfo , @PathVariable String empId){
+    public ResponseEntity<RegistrationResponse> createFamilyInfo(@RequestBody FamilyInfo familyInfo , @PathVariable("empId")  String empId){
 
         RegistrationResponse registrationResponse = familyInfoService.createFamilyInfo(familyInfo, empId);
 
@@ -28,7 +28,7 @@ public class FamilyInfoController {
 
     }
     @PutMapping("/{empId}")
-    public ResponseEntity<RegistrationResponse> updateFamilyInfo(@RequestBody FamilyInfo familyInfo , @PathVariable String empId){
+    public ResponseEntity<RegistrationResponse> updateFamilyInfo(@RequestBody FamilyInfo familyInfo , @PathVariable("empId")  String empId){
 
         RegistrationResponse registrationResponse = familyInfoService.updateFamilyInfo(empId, familyInfo);
 
